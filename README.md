@@ -1,1 +1,1 @@
-# ai-buddy
+# ai-travel-buddy
