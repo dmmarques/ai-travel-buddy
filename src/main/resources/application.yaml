@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: ai-travel-buddy
+  ai:
+    openai:
+      api-key: ${OPENAI_KEY}
+
+server:
+  port: 8081
