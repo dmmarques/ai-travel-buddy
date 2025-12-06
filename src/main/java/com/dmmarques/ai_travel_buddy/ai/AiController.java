@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -36,12 +37,14 @@ public class AiController {
     }
 
     @GetMapping("/travelSuggestions")
-    public List<GenActivity> generateTravelSuggestions(@RequestParam("location") String location, @RequestParam("numberOfDays") String nrDays) {
-        log.info("Generating travel suggestions for {} days in {}", nrDays, location);
+    public List<GenActivity> generateTravelSuggestions(@RequestParam("arrivalDate") String arrivalDate, @RequestParam("location") String location,
+        @RequestParam("numberOfDays") String nrDays,
+        @RequestParam("preferences") List<String> preferences) {
+        log.info("Generating travel suggestions for {} days in {} with the following preferences: {}. Starting on {}", nrDays, location, preferences, arrivalDate);
         return aiService.chat(String.format("Create an itinerary for each day while I am visiting %s."
-                                                + "I am arriving on 13/10/2025 and I am staying for %s days."
-                                                + "The Categories my class hold are: Sightseeing, Food, Sport, Entertainment and the rest should be set as Other."
-                                                + "Keep responses simple and short.", location, nrDays));
+                                                + "I am arriving on %s and I am staying for %s days."
+                                                + "I have special preference for activities related to: %s"
+                                                + "Keep responses simple and short.", location, arrivalDate, nrDays, preferences));
     }
 
     @GetMapping("/travelCostSuggestions")
