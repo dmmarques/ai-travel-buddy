@@ -57,6 +57,8 @@ class AiControllerTest {
         mockMvc.perform(get("/travel-buddy/ai/travelSuggestions")
                         .param("location", "Paris")
                         .param("numberOfDays", "2")
+                            .param("arrivalDate", "2025-01-01")
+                            .param("preferences", "Sightseeing,Food")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
